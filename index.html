@@ -1770,56 +1770,37 @@
       return;
     }
 
-    // ── WAAPI combination lock sequence ────────────────────────────────────
-    // Each turn: confident fast spin → heavy deceleration → near-stop →
-    // tiny mechanical click (overshoot + spring back) → pause → next direction.
-    //
-    // Easing breakdown:
-    //   DECEL: fast-out custom curve — starts quick, bleeds speed naturally,
-    //          finishes almost imperceptibly slow (like a hand finding the number).
-    //   CLICK: per-keyframe easing — fast lunge into the catch, spring back.
-    //
-    // Combination: CW 0°→810° (2¼ turns) → click → CCW 810°→270° (1½ turns) → click → CW 270°→378° (⅓ turn) → click → open
+    // ── WAAPI single-turn sequence ────────────────────────────────────────
+    // Dial starts at 0 (pointer at 12 o'clock). Rotates slowly CW 90°
+    // so the 25 position meets the pointer — deliberate, weighty, vault-like.
+    // One mechanical click into the catch, then doors open.
     // ──────────────────────────────────────────────────────────────────────
 
-    var DECEL = 'cubic-bezier(0.16, 0, 0.04, 1)'; // fast launch → very slow halt
-
-    // Spin from `from` to `to` degrees with the decel curve
-    function spin(from, to, ms) {
-      return face.animate(
-        [{ transform: 'rotate(' + from + 'deg)' }, { transform: 'rotate(' + to + 'deg)' }],
-        { duration: ms, easing: DECEL, fill: 'forwards' }
-      ).finished;
-    }
-
-    // Mechanical click: quick lunge `delta` degrees past the stop, spring back
-    function click(base, delta, ms) {
-      return face.animate(
-        [
-          // Start at stop position — move sharply into the catch
-          { transform: 'rotate(' + base + 'deg)',              offset: 0,    easing: 'cubic-bezier(0.3, 0, 0.1, 1)' },
-          // Peak of overshoot (38% through animation)
-          { transform: 'rotate(' + (base + delta) + 'deg)',   offset: 0.38, easing: 'cubic-bezier(0.1, 1.55, 0.4, 1)' },
-          // Spring settles back to exact stop — slight elastic wobble in the easing
-          { transform: 'rotate(' + base + 'deg)',              offset: 1 }
-        ],
-        { duration: ms, fill: 'forwards' }
-      ).finished;
-    }
+    // Slow deliberate easing: gentle start, very heavy deceleration as it
+    // finds the number — like a hand feeling for the combination catch.
+    var DIAL_EASE = 'cubic-bezier(0.45, 0, 0.08, 1)';
 
     function wait(ms) {
       return new Promise(function (resolve) { setTimeout(resolve, ms); });
     }
 
-    spin(0, 810, 950)                              // Phase 1 — CW 2¼ turns
-      .then(function () { return click(810, +7, 180); })  // click CW
-      .then(function () { return wait(260); })
-      .then(function () { return spin(810, 270, 870); })   // Phase 2 — CCW 1½ turns
-      .then(function () { return click(270, -7, 180); })   // click CCW
-      .then(function () { return wait(260); })
-      .then(function () { return spin(270, 378, 750); })   // Phase 3 — CW ⅓ turn
-      .then(function () { return click(378, +5, 155); })   // final click
-      .then(function () { return wait(350); })
+    // Rotate 0° → 90° slowly and deliberately
+    face.animate(
+      [{ transform: 'rotate(0deg)' }, { transform: 'rotate(90deg)' }],
+      { duration: 2000, easing: DIAL_EASE, fill: 'forwards' }
+    ).finished
+      .then(function () {
+        // Mechanical click: sharp lunge past the stop, spring back into catch
+        return face.animate(
+          [
+            { transform: 'rotate(90deg)',  offset: 0,    easing: 'cubic-bezier(0.3, 0, 0.1, 1)' },
+            { transform: 'rotate(96deg)',  offset: 0.38, easing: 'cubic-bezier(0.1, 1.55, 0.4, 1)' },
+            { transform: 'rotate(90deg)',  offset: 1 }
+          ],
+          { duration: 200, fill: 'forwards' }
+        ).finished;
+      })
+      .then(function () { return wait(420); })
       .then(triggerDoorOpen);
   }
 
