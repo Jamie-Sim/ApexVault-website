@@ -405,6 +405,421 @@ nav a:hover { color: var(--text); }
 
 .about-body p:last-child { margin-bottom: 0; }
 
+/* ─── MEMBER CARS ─── */
+.cars-outer {
+  position: relative;
+  border-top: 1px solid var(--border);
+}
+
+.fleet-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+}
+
+.car-card {
+  background: var(--bg-card);
+  transition: background 0.25s ease;
+}
+
+.car-card:hover { background: #121216; }
+
+.car-img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  background: #111115;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+
+.car-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  filter: brightness(0.78) contrast(1.06) saturate(0.85);
+  transition: transform 0.7s cubic-bezier(0.25, 0, 0, 1), filter 0.5s ease;
+}
+
+.car-card:hover .car-img img {
+  transform: scale(1.04);
+  filter: brightness(0.88) contrast(1.06) saturate(0.9);
+}
+
+.car-img::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(8,8,9,0.72) 0%, rgba(8,8,9,0.1) 45%, transparent 70%),
+    linear-gradient(to bottom, rgba(8,8,9,0.2) 0%, transparent 30%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.car-info { padding: 1.75rem 2rem 2.25rem; }
+
+.car-num {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0.3em;
+  color: var(--silver);
+  margin-bottom: 0.75rem;
+}
+
+.car-name {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 21px;
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.15;
+  margin-bottom: 0.2rem;
+}
+
+.car-year {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  color: var(--text-sub);
+  margin-bottom: 1.25rem;
+}
+
+.car-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.25rem;
+}
+
+.tag {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--silver);
+  border: 1px solid rgba(200,205,216,0.22);
+  padding: 2px 9px;
+}
+
+.car-desc {
+  font-size: 13.5px;
+  color: var(--text-sub);
+  line-height: 1.82;
+  font-weight: 300;
+}
+
+/* ─── FLEET + WHAT WE DO ─── */
+.fleet-outer {
+  position: relative;
+  border-top: 1px solid var(--border);
+}
+
+.fleet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3.5rem;
+}
+
+.fleet-count {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: var(--text-sub);
+}
+
+.what-we-do-list { display: flex; flex-direction: column; }
+
+.wwd-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2.5rem 0;
+  border-top: 1px solid var(--border);
+}
+.wwd-item:last-child { border-bottom: 1px solid var(--border); }
+
+.wwd-title {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: var(--text);
+  margin: 0 0 0.75rem;
+  letter-spacing: -0.01em;
+}
+
+.wwd-desc {
+  font-size: 15px;
+  color: var(--text-sub);
+  line-height: 1.85;
+  font-weight: 300;
+  max-width: 640px;
+  margin: 0;
+  text-align: center;
+}
+
+/* ─── PHILOSOPHY ─── */
+.philosophy-outer {
+  position: relative;
+  background: rgba(5,5,7,0.6);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.philosophy-ghost {
+  position: absolute;
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(80px, 16vw, 220px);
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255,255,255,0.04);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  letter-spacing: 0.08em;
+}
+
+.philosophy-inner {
+  padding: 6rem var(--px);
+  max-width: var(--max-w);
+  text-align: center;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.philosophy-inner blockquote {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(22px, 2.8vw, 36px);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--text);
+  line-height: 1.42;
+  max-width: 880px;
+  letter-spacing: -0.01em;
+}
+
+.philosophy-inner blockquote em {
+  font-style: normal;
+  color: var(--silver-bright);
+  text-shadow:
+    0 0 20px rgba(220,228,250,0.85),
+    0 0 60px rgba(200,215,248,0.5),
+    0 0 120px rgba(180,200,242,0.28);
+}
+
+.philosophy-inner cite {
+  display: block;
+  margin-top: 2rem;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--text-sub);
+  font-style: normal;
+}
+
+/* ─── WAITLIST ─── */
+.waitlist-outer {
+  position: relative;
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(200,210,240,0.055) 0%, transparent 70%),
+    #0d0e15;
+  border-top: 1px solid rgba(200,205,216,0.12);
+  border-bottom: 1px solid rgba(200,205,216,0.12);
+}
+
+.waitlist-inner-wrap {
+  padding: 8rem var(--px);
+  max-width: 720px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.waitlist-heading {
+  font-family: var(--font-cormorant), Georgia, serif;
+  font-size: clamp(34px, 4.4vw, 56px);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.1;
+  letter-spacing: -0.015em;
+  margin-bottom: 1.25rem;
+}
+
+.waitlist-heading em {
+  font-style: italic;
+  color: var(--silver-bright);
+  text-shadow:
+    0 0 25px rgba(220,228,250,0.65),
+    0 0 70px rgba(200,215,248,0.38);
+}
+
+.waitlist-desc {
+  font-size: 15px;
+  color: var(--text-sub);
+  line-height: 1.9;
+  max-width: 520px;
+}
+
+.waitlist-note {
+  margin-top: 2rem;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.waitlist-card {
+  width: 100%;
+  margin-top: 3.5rem;
+  padding: 3rem;
+  background: rgba(255,255,255,0.032);
+  border: 1px solid rgba(200,205,216,0.14);
+  box-shadow:
+    0 2px 40px rgba(0,0,0,0.45),
+    inset 0 1px 0 rgba(255,255,255,0.04);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  margin-bottom: 1rem;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+}
+
+.form-group label {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--text-sub);
+}
+
+.form-group input,
+.form-group select {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border-hi);
+  color: var(--text);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 15px;
+  font-weight: 300;
+  outline: none;
+  border-radius: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+  line-height: 1.5;
+}
+
+.form-group input:hover,
+.form-group select:hover { border-color: rgba(255,255,255,0.2); }
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: var(--silver);
+  background: rgba(200,205,216,0.04);
+  box-shadow: 0 0 20px rgba(200,205,216,0.08);
+}
+
+.form-group input::placeholder { color: var(--text-muted); }
+.form-group select option { background: #1a1a1e; }
+
+.submit-btn {
+  margin-top: 0.5rem;
+  background: transparent;
+  border: 1px solid var(--silver);
+  color: var(--silver-bright);
+  padding: 0.9rem 2.75rem;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.22s ease, color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.submit-btn:hover {
+  background: var(--silver-dim);
+  box-shadow: 0 0 28px rgba(200,205,216,0.2);
+}
+
+.submit-btn:focus-visible { outline: 1px solid var(--silver); outline-offset: 4px; }
+.submit-btn:active { opacity: 0.82; }
+
+.success-msg {
+  display: none;
+  margin-top: 2rem;
+  padding: 1.35rem 1.5rem;
+  border: 1px solid rgba(200,205,216,0.22);
+  background: rgba(200,205,216,0.05);
+  font-size: 14px;
+  color: var(--silver-bright);
+  line-height: 1.75;
+}
+
+/* ─── FOOTER ─── */
+footer { border-top: 1px solid var(--border); }
+
+.footer-inner {
+  max-width: var(--max-w);
+  margin: 0 auto;
+  padding: 2.25rem var(--px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer-brand {
+  font-family: var(--font-bokor), Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.footer-links { display: flex; gap: 2.5rem; }
+
+footer p,
+.footer-links a {
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  color: var(--text-sub);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.footer-links a:hover { color: var(--text); }
+
 /* ─── SCROLL REVEAL ─── */
 .reveal {
   opacity: 0;
@@ -420,6 +835,7 @@ nav a:hover { color: var(--text); }
 @media (max-width: 1100px) {
   :root { --px: 2.5rem; }
   .about-grid { grid-template-columns: 1fr; gap: 4rem; }
+  .waitlist-card { padding: 2rem 1.5rem; }
 }
 
 @media (max-width: 700px) {
@@ -440,4 +856,15 @@ nav a:hover { color: var(--text); }
   .about-grid { gap: 2.5rem; }
   .about-heading { text-align: center; }
   .about-body { text-align: center; }
+
+  .wwd-desc { margin: 0 auto; }
+
+  .philosophy-inner { text-align: center; padding: 4rem var(--px); }
+
+  .waitlist-inner-wrap { padding: 5rem var(--px); }
+  .form-row { grid-template-columns: 1fr; }
+  .submit-btn { width: 100%; }
+
+  .footer-inner { flex-direction: column; gap: 1.25rem; text-align: center; }
+  .footer-links { justify-content: center; }
 }
