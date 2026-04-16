@@ -1,81 +1,60 @@
-# ApexVault — Project Context
+# Apex Vault — Project Context
 
-## What This Project Is
-ApexVault is the website for a private members' car club based in Glasgow, Scotland. The site is a single `index.html` file served at `http://localhost:3000` via `node serve.mjs`.
+## What Apex Vault Is
+Apex Vault is a Glasgow-based car membership club founded by Ross Taylor. Members pay to access a curated fleet of analog-era performance cars (mid-90s to mid-00s) rather than own them — all the thrill of a modern classic without the storage, maintenance, insurance, or upkeep.
 
-## Business Model
-- **Private, invite-only membership** — no open sign-ups. Prospective members join a waitlist.
-- **Small by design** — quality over scale. No specific member target is stated publicly.
-- **No entry criteria based on car value or marque.** The only requirement is that you actually drive your car.
-- **Activities:** Organised road runs on good Scottish roads, casual meets, a members group chat.
-- **Revenue model is not yet defined publicly** — the site's only CTA is the waitlist form.
-- **Tone:** Unpretentious, confident, no-fluff. Speaks to drivers, not collectors or posers.
+**Tagline:** *The Drive Society.*
 
-## Site Structure
-The site is a single long-scroll page with the following sections (in order):
-1. **Vault intro overlay** — combination lock dial animation; click to enter, vault doors slide apart
-2. **Nav** — sticky top bar, links only (no logo in nav), centre-aligned
-3. **Hero** — large "APEX VAULT" in Bokor, sub-heading in Cormorant, CTA to waitlist
-4. **About** — "Built by drivers, for drivers." Two-column text + stats
-5. **Member Cars** — three-card grid: Ford Focus RS, BMW Z3, VW Golf R32
-6. **What We Do** — numbered list of club activities/philosophy
-7. **Philosophy** — full-width pull-quote section
-8. **Waitlist** — email sign-up form with name + email fields
-9. **Footer** — "APEX VAULT" in Bokor (white), nav links, Glasgow © 2025
+## Current Stage
+Pre-launch validation. Ross is signing up **founding members** via a £250 joining fee — partly to prove demand, partly to support a loan application for the fleet. Target launch: **June 2026**. The website's primary job right now is converting visitors into founding members.
 
-## Brand Identity
+## The Founder
+Ross Taylor. Lifelong driver — owned everything from imported Datsuns to RS4s, driven £200k supercars and found them more impressive than fun. Built Apex Vault because he wanted back to the grit: hot hatches, analog dials, mechanical feel, cars you can actually push to the limit. He hates screens and loves the drive.
 
-### Name & Wordmark
-- **Brand name:** Apex Vault
-- **Display treatment:** `APEX VAULT` in Bokor, uppercase, white — used as the hero title and footer wordmark
-- **No separate logo image is used on the live site** (`ApexVaultLogo.png` exists in BrandAssets but is not currently placed)
+## The Fleet Concept
+A curated selection of analog-era performance cars from the peak-engineering window of roughly 1995–2005. Indicative line-up: **RS4 B7, Focus RS, MR2, XKR, Lotus Elise**. The pitch is mechanical symphony, build quality, gear changes that feel like conversations — the antithesis of the modern screen-and-software car.
 
-### Colour Palette (exact CSS variables)
-```
---bg:           #080809       /* near-black page background */
---bg-card:      #0e0e10       /* card surfaces */
---bg-raised:    #0b0b0d       /* slightly raised surfaces */
---border:       rgba(255,255,255,0.07)
---border-hi:    rgba(255,255,255,0.14)
---text:         #f0f0f2       /* primary text */
---text-sub:     #9a9ba8       /* secondary text */
---text-muted:   #4a4a56       /* muted/disabled text */
---silver:       #c8cdd8       /* steel/chrome accent */
---silver-bright:#e8eaf0
---silver-dim:   rgba(200,205,216,0.12)
-```
-Do not deviate from this palette. **There is no gold or warm accent colour** — the palette is strictly near-black, silver, and white. Do not introduce warm tones.
+Members get the keys; Apex Vault takes the hit on storage, the heated garage, the moisture control, the specialist mechanic, and the insurance.
 
-### Typography
-```
---display: 'Bokor', Georgia, serif          /* hero title, footer wordmark only */
---serif:   'Cormorant', Georgia, serif      /* headings, subheadings, pull quotes */
---sans:    'DM Sans', system-ui, sans-serif /* body copy, nav, labels, UI */
-```
-- Bokor: single weight, uppercase only, large sizes
-- Cormorant: weights 300–600, italic used expressively on key words
-- DM Sans: weights 300–500, high letter-spacing for labels/eyebrows
+## Membership Model
+Four monthly tiers, plus a one-time joining fee:
 
-### Visual Style
-- **Dark, minimal luxury** — near-black backgrounds, silver/steel tones, restrained gold
-- **Depth via layered radial gradient "orbs"** — soft glowing blobs behind content, not flat colour
-- **Grain texture overlay** — SVG fractalNoise at low opacity across the entire page
-- **No hard shadows** — all depth comes from gradient layers and subtle glows
-- **Animations:** `transform` and `opacity` only, spring-style easing, nothing jarring
+| Tier | Price | Driving Allowance | Booking Window |
+|---|---|---|---|
+| Ignition | £275 / month | 72 hours (3 days) | 4 weeks |
+| Rev | £500 / month | 144 hours (6 days) | 6 weeks |
+| Red Line | £700 / month | 216 hours (9 days) | 8 weeks |
+| Apex Unlimited | £1,500 / month | Unlimited | 4 months |
 
-## Key Files
-```
-index.html              — entire site (HTML + CSS + JS inline)
-serve.mjs               — dev server on port 3000 (URL-decodes paths for spaced filenames)
-screenshot.mjs          — Puppeteer viewport screenshot → temporary screenshots/
-screenshot-viewport.mjs — viewport-only variant
-screenshot-section.mjs  — element-targeted screenshot by CSS selector
-BrandAssets/
-  FocusRS_Image.avif    — Ford Focus RS (car card 01)
-  BMW Z3.webp           — BMW Z3 (car card 02, object-fit: contain)
-  GOLF R32.jpg          — VW Golf R32 (car card 03)
-  ApexVaultLogo.png     — logo asset (not currently placed in site)
-```
+- **Joining fee:** £250 one-time.
+- **Concierge drop-off and collection** available across Scotland (additional fees).
+- **Apex Fuel Card:** members fuel up on a fleet card, billed at cost monthly — no markup.
+- **Member Repair Plan:** no chasing for stone chips or normal wear; major mishaps covered by an interest-free repair plan over the membership term.
+- **The Pit Check:** every car gets an overnight inspection between members.
 
-## Frontend Workflow
-When making any changes to the site, follow the rules in @.claude/skills/frontend-website/SKILL.md
+## Founding-Member Offer
+Memberships are deliberately limited by fleet size. Founding members lock in their place now and receive:
+- Permanent exemption from all future joining fees.
+- Lifetime VIP access to *The Drive Club* meetups and unveilings.
+- Early access to YouTube *Vault Builds* and other content.
+- First-look and first-drive at every new fleet addition.
+- Full refund of the joining fee if the launch doesn't proceed.
+
+## Future Direction
+**Phase 2: The Social Sanctuary.** A physical clubhouse — private bar, café, and gym — for the kind of people who care about driving. Talk shop with people who get it.
+
+**Content arm:** YouTube and social channels documenting fleet builds and restorations (the MR2 custom build, the XKR restoration, etc.).
+
+## Audience & Tone
+Speaks to **drivers, not collectors or posers**. The audience is people who care about steering feel, gear changes, and what a car actually feels like to drive — not lap times, status, or spec-sheet flexing.
+
+**Voice:** unpretentious, confident, no-fluff. Anti-screen, pro-mechanical. Never precious, never marketing-speak. Lines like *"We take the hit; you take the keys"* and *"All the thrill. None of the niggles."* set the register.
+
+## Brand Narrative Themes
+Anchor copy and creative around these ideas:
+- **The Death of the Dial** — modern cars sell screens instead of steering feel, software instead of spirit.
+- **Sanctuary for the analog age** — preservation of the driving experience, not just a garage.
+- **Soul, build quality, mechanical symphony** — peak-engineering era as a high-water mark.
+- **The grit** — hot hatches, analog dials, cars you can push.
+
+Use these as voice anchors when writing or critiquing copy. The brand is the antidote, not the upgrade.
