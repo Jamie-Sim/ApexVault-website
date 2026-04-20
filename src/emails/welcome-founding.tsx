@@ -23,8 +23,8 @@ export function WelcomeFoundingEmail({ firstName }: Props) {
           <Text style={heading}>You&apos;re in, {firstName}.</Text>
           <Text style={paragraph}>
             Your founding-member spot is held. Ross will be in touch within 48 hours with the
-            payment link for the £{FOUNDING_FEE_GBP} joining fee &mdash; no spam between now and
-            then.
+            payment link for the {`£${FOUNDING_FEE_GBP} joining fee`} &mdash; no spam between
+            now and then.
           </Text>
           <Text style={paragraph}>
             Once that lands, you&apos;re locked in for {LAUNCH_MONTH}: permanent exemption from
