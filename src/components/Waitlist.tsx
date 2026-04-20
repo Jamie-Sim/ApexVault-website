@@ -2,42 +2,120 @@
 
 import { useState, type FormEvent } from "react";
 import Reveal from "./Reveal";
+import { FOUNDING_FEE_GBP, FOUNDING_SPOTS_TOTAL, LAUNCH_MONTH } from "@/config";
+import { useCounter } from "@/hooks/useCounter";
+
+const perks = [
+  "Permanent exemption from all future joining fees.",
+  "Lifetime VIP access to The Drive Club meetups and unveilings.",
+  "Early access to Vault Builds on YouTube.",
+  "First-look and first-drive at every new fleet addition.",
+];
+
+type SubmitStatus = "pending_payment" | "waitlist";
 
 export default function Waitlist() {
+  const counter = useCounter();
+  const intakeClosed = counter.closed;
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submittedAs, setSubmittedAs] = useState<SubmitStatus | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const onSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (submitting) return;
+
+    setSubmitting(true);
+    setError(null);
+
+    try {
+      const res = await fetch("/api/signup", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ firstName, lastName, email }),
+      });
+
+      const data: { ok: boolean; status?: SubmitStatus; error?: string } = await res
+        .json()
+        .catch(() => ({ ok: false, error: "Unexpected response." }));
+
+      if (!res.ok || !data.ok || !data.status) {
+        setError(data.error ?? "Could not submit. Try again shortly.");
+        setSubmitting(false);
+        return;
+      }
+
+      setSubmittedAs(data.status);
+    } catch {
+      setError("Network error. Try again shortly.");
+      setSubmitting(false);
+    }
   };
 
+  const headingRemaining = counter.remaining;
+  const buttonLabel = intakeClosed ? "Join Waitlist" : "Secure Founding Membership";
+
   return (
-    <div className="waitlist-outer" id="waitlist">
+    <div className="waitlist-outer" id="join">
       <div className="waitlist-inner-wrap">
         <Reveal>
           <p className="section-label no-dash" style={{ justifyContent: "center" }}>
-            Join the Club
+            {intakeClosed ? "Launch Waitlist" : "Founding Members"}
           </p>
-          <h2 className="waitlist-heading">
-            We&apos;re not open yet.
-            <br />
-            <em>Be the first to know.</em>
-          </h2>
-          <p className="waitlist-desc">
-            Apex Vault is building its member list. Get your name on it and we&apos;ll be in touch
-            when we&apos;re ready to go &mdash; including a say in how things are run from the
-            start.
-          </p>
+          {intakeClosed ? (
+            <h2 className="waitlist-heading">
+              Founding intake closed.
+              <br />
+              <em>Join the launch waitlist.</em>
+            </h2>
+          ) : (
+            <h2 className="waitlist-heading">
+              Secure your spot.
+              <br />
+              <em>
+                {headingRemaining} of {FOUNDING_SPOTS_TOTAL} remain.
+              </em>
+            </h2>
+          )}
+          {intakeClosed ? (
+            <p className="waitlist-desc">
+              All {FOUNDING_SPOTS_TOTAL} founding places are committed. Leave your details to
+              be first in line when public memberships open in {LAUNCH_MONTH}.
+            </p>
+          ) : (
+            <p className="waitlist-desc">
+              Memberships are strictly limited by fleet size. A £{FOUNDING_FEE_GBP} founding fee
+              locks in your place before public intake opens in {LAUNCH_MONTH}. Full refund if the
+              launch doesn&apos;t proceed.
+            </p>
+          )}
+          {!intakeClosed && (
+            <ul className="perks-list">
+              {perks.map((p) => (
+                <li key={p}>{p}</li>
+              ))}
+            </ul>
+          )}
         </Reveal>
 
         <Reveal delay={1} className="waitlist-card">
-          {submitted ? (
+          {submittedAs ? (
             <div className="success-msg" style={{ display: "block" }}>
-              You&apos;re on the list. We&apos;ll be in touch when we&apos;re ready to roll &mdash;
-              no spam, just a note when the time comes.
+              {submittedAs === "pending_payment" ? (
+                <>
+                  You&apos;re on the founding list. Ross will be in touch within 48 hours with
+                  payment details &mdash; no spam, just the call to action when it&apos;s time.
+                </>
+              ) : (
+                <>
+                  Founding intake is closed, but you&apos;re on the waitlist for public launch
+                  in {LAUNCH_MONTH}. We&apos;ll reach out the moment a spot opens.
+                </>
+              )}
             </div>
           ) : (
             <form onSubmit={onSubmit} style={{ textAlign: "left" }}>
@@ -76,17 +154,30 @@ export default function Waitlist() {
                   onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
-              <button type="submit" className="submit-btn">
-                Get on the List
+              <button type="submit" className="submit-btn" disabled={submitting}>
+                {submitting ? "Sending…" : buttonLabel}
               </button>
+              {error && (
+                <p
+                  role="alert"
+                  style={{
+                    marginTop: "0.75rem",
+                    color: "#e8eaf0",
+                    fontSize: "0.85rem",
+                    opacity: 0.8,
+                  }}
+                >
+                  {error}
+                </p>
+              )}
             </form>
           )}
         </Reveal>
 
         <Reveal delay={2}>
           <p className="waitlist-note">
-            We don&apos;t send newsletters. We won&apos;t sell your details. One message, when
-            we&apos;re ready to go.
+            No newsletters. No sold details. One message when it&apos;s time to pay &mdash; and
+            full refund if the launch doesn&apos;t happen.
           </p>
         </Reveal>
       </div>

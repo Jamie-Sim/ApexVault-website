@@ -1,17 +1,30 @@
+"use client";
+
+import { FOUNDING_SPOTS_TOTAL } from "@/config";
+import { useCounter } from "@/hooks/useCounter";
+
 export default function Hero() {
+  const { remaining, closed } = useCounter();
+
   return (
     <div className="hero-wrap">
       <h1 className="hero-brand">Apex Vault</h1>
       <p className="hero-city">Glasgow</p>
       <h2 className="hero-sub-heading">
-        A club for people
-        <br />
-        who actually <em>drive.</em>
+        The <em>Drive</em> Society.
       </h2>
-      <p className="hero-sub">Nae Posers. Pothole dodgers only.</p>
+      <p className="hero-sub">
+        {closed ? (
+          <>Founding intake closed &mdash; join the launch waitlist.</>
+        ) : (
+          <>
+            Founding intake open &mdash; {remaining} of {FOUNDING_SPOTS_TOTAL} spots remain.
+          </>
+        )}
+      </p>
       <div className="hero-actions">
-        <a href="#waitlist" className="btn btn-primary">
-          Get on the List
+        <a href="#join" className="btn btn-primary">
+          {closed ? "Join Waitlist" : "Secure Founding Membership"}
         </a>
       </div>
     </div>

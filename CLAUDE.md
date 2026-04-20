@@ -6,7 +6,7 @@ Apex Vault is a Glasgow-based car membership club founded by Ross Taylor. Member
 **Tagline:** *The Drive Society.*
 
 ## Current Stage
-Pre-launch validation. Ross is signing up **founding members** via a £250 joining fee — partly to prove demand, partly to support a loan application for the fleet. Target launch: **June 2026**. The website's primary job right now is converting visitors into founding members.
+Pre-launch validation. Ross is signing up **founding members** via a £275 joining fee — partly to prove demand, partly to support a loan application for the fleet. Target launch: **June 2026**. The website's primary job right now is converting visitors into founding members.
 
 ## The Founder
 Ross Taylor. Lifelong driver — owned everything from imported Datsuns to RS4s, driven £200k supercars and found them more impressive than fun. Built Apex Vault because he wanted back to the grit: hot hatches, analog dials, mechanical feel, cars you can actually push to the limit. He hates screens and loves the drive.
@@ -26,7 +26,7 @@ Four monthly tiers, plus a one-time joining fee:
 | Red Line | £700 / month | 216 hours (9 days) | 8 weeks |
 | Apex Unlimited | £1,500 / month | Unlimited | 4 months |
 
-- **Joining fee:** £250 one-time.
+- **Joining fee:** £275 one-time.
 - **Concierge drop-off and collection** available across Scotland (additional fees).
 - **Apex Fuel Card:** members fuel up on a fleet card, billed at cost monthly — no markup.
 - **Member Repair Plan:** no chasing for stone chips or normal wear; major mishaps covered by an interest-free repair plan over the membership term.
