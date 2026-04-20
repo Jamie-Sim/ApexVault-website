@@ -5,7 +5,9 @@ import Hero from "@/components/Hero";
 import About from "@/components/About";
 import MemberCars from "@/components/MemberCars";
 import WhatWeDo from "@/components/WhatWeDo";
-import Philosophy from "@/components/Philosophy";
+import Tiers from "@/components/Tiers";
+import Clubhouse from "@/components/Clubhouse";
+import FounderNote from "@/components/FounderNote";
 import Waitlist from "@/components/Waitlist";
 import Footer from "@/components/Footer";
 
@@ -20,7 +22,9 @@ export default function Home() {
         <About />
         <MemberCars />
         <WhatWeDo />
-        <Philosophy />
+        <Tiers />
+        <Clubhouse />
+        <FounderNote />
         <Waitlist />
       </main>
       <Footer />

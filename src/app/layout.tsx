@@ -25,8 +25,9 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "ApexVault — Glasgow",
-  description: "The Drive Society. A Glasgow-based car membership club.",
+  title: "Apex Vault — The Drive Society",
+  description:
+    "Glasgow-based private car club. Curated analog-era performance cars. Founding memberships open — limited spots.",
 };
 
 export default function RootLayout({

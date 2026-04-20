@@ -7,11 +7,11 @@ export default function Nav() {
             <a href="#about">About</a>
           </li>
           <li>
-            <a href="#what-we-do">What We Do</a>
+            <a href="#tiers">Tiers</a>
           </li>
           <li>
-            <a href="#waitlist" className="nav-join">
-              Get on the List
+            <a href="#join" className="nav-join">
+              Secure Spot
             </a>
           </li>
         </ul>

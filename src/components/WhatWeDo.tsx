@@ -4,39 +4,46 @@ type Item = { title: string; desc: string };
 
 const items: Item[] = [
   {
-    title: "Organised drives",
-    desc: "Scenic routes through proper roads — the kind you actually look forward to. No convoy of 50, no pace car, just a sensible group heading somewhere worth going.",
+    title: "The Apex Fuel Card",
+    desc: "Fleet cards, billed back at cost on your monthly invoice. No markup. No admin. More bang for your buck.",
   },
   {
-    title: "Casual meets",
-    desc: "Turn up, have a look at each other's cars, have a coffee. Nothing formal. We're not doing trophies and marquees — just a decent excuse to get the car out.",
+    title: "Member Repair Plan",
+    desc: "We don't chase you for stone chips or standard wear. Major mishap? Interest-free finance over your membership term — no upfront sting.",
   },
   {
-    title: "A proper group",
-    desc: "A members chat for routes, tips, mechanical chat, and the occasional \u201Canyone fancy a run this weekend?\u201D message. Low noise, actually useful.",
+    title: "The Pit Check",
+    desc: "Every car gets an overnight inspection between members. Peak performance, safety, and a showroom-ready finish before you turn the key.",
   },
 ];
 
 export default function WhatWeDo() {
   return (
-    <div className="fleet-outer" id="what-we-do">
+    <div className="fleet-outer" id="peace-of-mind">
       <div className="section-inner">
         <div className="fleet-header">
           <p
             className="section-label no-dash"
             style={{ marginBottom: 0, justifyContent: "center", width: "100%" }}
           >
-            What We Do
+            Peace of Mind
           </p>
         </div>
 
+        <Reveal>
+          <h2 className="wwd-heading">All the thrill. None of the niggles.</h2>
+        </Reveal>
+        <Reveal delay={1}>
+          <p className="wwd-intro">
+            Owning a modern classic in Scotland is a labor of love &mdash; mostly labor. The
+            heated garage, the moisture control, the specialist mechanic, the insurance. We
+            take the hit. You take the keys.
+          </p>
+        </Reveal>
+
         <div className="what-we-do-list">
           {items.map((item, i) => (
-            <Reveal
-              key={item.title}
-              delay={i as 0 | 1 | 2}
-              className="wwd-item"
-            >
+            <Reveal key={item.title} delay={i as 0 | 1 | 2} className="wwd-item">
               <h3 className="wwd-title">{item.title}</h3>
               <p className="wwd-desc">{item.desc}</p>
             </Reveal>

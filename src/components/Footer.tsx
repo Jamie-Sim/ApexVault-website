@@ -7,10 +7,11 @@ export default function Footer() {
         </a>
         <div className="footer-links">
           <a href="#about">About</a>
-          <a href="#what-we-do">What We Do</a>
-          <a href="#waitlist">Join</a>
+          <a href="#fleet">Fleet</a>
+          <a href="#tiers">Tiers</a>
+          <a href="#join">Join</a>
         </div>
-        <p>Glasgow &mdash; &copy; 2025</p>
+        <p>Glasgow &mdash; &copy; 2026</p>
       </div>
     </footer>
   );

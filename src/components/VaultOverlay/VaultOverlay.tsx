@@ -130,6 +130,11 @@ export default function VaultOverlay() {
     const face = faceRef.current;
     if (!overlay || !bezel || !face) return;
 
+    if (new URLSearchParams(window.location.search).has("skipVault")) {
+      overlay.classList.add("done");
+      return;
+    }
+
     const htmlEl = document.documentElement;
     const previousOverflow = htmlEl.style.overflow;
     htmlEl.style.overflow = "hidden";
