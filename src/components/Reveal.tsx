@@ -15,6 +15,10 @@ export default function Reveal({ children, delay = 0, className = "", as = "div"
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
+    if (new URLSearchParams(window.location.search).has("showAll")) {
+      el.classList.add("in");
+      return;
+    }
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {

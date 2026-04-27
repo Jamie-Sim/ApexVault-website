@@ -1,28 +1,32 @@
 import type { Metadata } from "next";
-import { Bokor, Cormorant, DM_Sans } from "next/font/google";
+import { Cormorant_Garamond } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
-const bokor = Bokor({
-  variable: "--font-bokor",
+const cormorantGaramond = Cormorant_Garamond({
   subsets: ["latin"],
-  weight: "400",
-  display: "swap",
-});
-
-const cormorant = Cormorant({
-  variable: "--font-cormorant",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
+  weight: ["300", "400", "500", "600", "700"],
   style: ["normal", "italic"],
   display: "swap",
 });
 
-const dmSans = DM_Sans({
-  variable: "--font-dm-sans",
-  subsets: ["latin"],
-  weight: ["300", "400", "500"],
+const clashDisplay = localFont({
+  src: [
+    {
+      path: "../fonts/ClashDisplay-Variable.woff2",
+      style: "normal",
+      weight: "200 700",
+    },
+  ],
   display: "swap",
+  variable: "--font-clash",
 });
+
+const fontVariables = {
+  "--font-bokor": cormorantGaramond.style.fontFamily,
+  "--font-cormorant": cormorantGaramond.style.fontFamily,
+  "--font-dm-sans": cormorantGaramond.style.fontFamily,
+} as React.CSSProperties;
 
 export const metadata: Metadata = {
   title: "Apex Vault — The Drive Society",
@@ -36,10 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      className={`${bokor.variable} ${cormorant.variable} ${dmSans.variable}`}
-    >
+    <html lang="en" style={fontVariables} className={clashDisplay.variable}>
       <body>{children}</body>
     </html>
   );

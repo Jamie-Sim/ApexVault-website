@@ -3,7 +3,7 @@ export default function Footer() {
     <footer>
       <div className="footer-inner">
         <a href="#" className="footer-brand">
-          Apex Vault
+          ApexVault
         </a>
         <div className="footer-links">
           <a href="#about">About</a>

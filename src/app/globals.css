@@ -42,8 +42,9 @@ body {
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-weight: 300;
-  line-height: 1.7;
+  font-weight: 400;
+  font-size: 19px;
+  line-height: 1.72;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
   position: relative;
@@ -134,13 +135,14 @@ body {
   filter: blur(120px);
 }
 
-/* Grain overlay */
+/* Photographic dust overlay — sparse, large specks scattered unevenly. Static, no animation. */
 body::after {
   content: '';
   position: fixed;
   inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-  opacity: 0.032;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='1200' height='1200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.16' numOctaves='2' stitchTiles='stitch' seed='7'/%3E%3CfeColorMatrix type='matrix' values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  1.2 1.2 1.2 0 -2.55'/%3E%3C/filter%3E%3Crect width='1200' height='1200' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.16;
+  mix-blend-mode: screen;
   pointer-events: none;
   z-index: 9999;
 }
@@ -176,9 +178,9 @@ nav ul { list-style: none; display: flex; align-items: center; gap: 2.5rem; }
 
 nav a {
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--text-sub);
   text-decoration: none;
@@ -202,54 +204,130 @@ nav a:hover { color: var(--text); }
 }
 
 /* ─── HERO ─── */
+.hero-stage {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: clamp(720px, 100vh, 1080px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.hero-image {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-image-img {
+  object-fit: cover;
+  object-position: center 42%;
+  filter: brightness(0.62) contrast(1.08) saturate(0.72);
+}
+
+/* Cinematic vignette + top/bottom fade so wordmark reads cleanly */
+.hero-image-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 70% at 50% 55%, transparent 0%, rgba(6,6,8,0.55) 65%, rgba(6,6,8,0.92) 100%),
+    linear-gradient(to bottom, rgba(6,6,8,0.55) 0%, transparent 22%, transparent 62%, rgba(6,6,8,0.92) 100%);
+  pointer-events: none;
+}
+
+/* Cool silver grade to match palette */
+.hero-image-grade {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 30% 30%, rgba(120,150,220,0.12) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 80%, rgba(90,110,180,0.10) 0%, transparent 50%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
 .hero-wrap {
   position: relative;
-  padding: 7rem var(--px) 9rem;
+  z-index: 2;
+  padding: 6rem var(--px) 7rem;
   max-width: var(--max-w);
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  width: 100%;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--silver);
+  margin-bottom: 1.8rem;
+  opacity: 0.92;
+}
+
+.hero-eyebrow-line {
+  width: 36px;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(200,205,216,0.6), transparent);
+}
+
+@property --gleam {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
 }
 
 .hero-brand {
-  font-family: var(--font-bokor), Georgia, serif;
-  font-size: clamp(72px, 13vw, 196px);
-  font-weight: 400;
-  line-height: 0.88;
-  letter-spacing: 0.05em;
+  --mx: 50%;
+  --my: 50%;
+  --gleam: 0;
+  font-family: var(--font-clash), "Clash Display", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(44px, 11vw, 160px);
+  line-height: 0.98;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
-  color: #ffffff;
-  margin-bottom: 3.5rem;
-  text-shadow:
-    0 1px 0 rgba(200,205,216,0.4),
-    0 2px 4px rgba(0,0,0,0.5),
-    0 8px 40px rgba(200,210,240,0.10),
-    0 0 120px rgba(180,195,240,0.07);
+  text-align: center;
+  white-space: nowrap;
+  margin: 0 0 2rem;
   user-select: none;
+  font-kerning: normal;
+  font-feature-settings: "kern" 1, "liga" 1;
+  background-color: var(--silver-bright);
+  background-image: radial-gradient(
+    ellipse 24vw 80vh at var(--mx) var(--my),
+    rgba(255, 255, 255, calc(0.6 * var(--gleam))) 0%,
+    rgba(255, 255, 255, 0) 65%
+  );
+  -webkit-background-clip: text;
+          background-clip: text;
+  color: transparent;
+  filter:
+    drop-shadow(0 14px 40px rgba(0,0,0,0.55))
+    drop-shadow(0 0 110px rgba(180,200,245,0.12));
+  transition: --gleam 0.35s ease;
 }
 
-.hero-city {
-  font-family: var(--font-bokor), Georgia, serif;
-  font-size: clamp(28px, 4.5vw, 72px);
-  font-weight: 400;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  color: var(--text-sub);
-  margin-top: -0.4em;
-  margin-bottom: 3rem;
-  user-select: none;
-}
 
 .hero-sub-heading {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(36px, 5vw, 72px);
+  font-size: clamp(38px, 5vw, 76px);
   font-weight: 300;
   line-height: 1.05;
   letter-spacing: -0.02em;
   color: var(--text);
-  margin-bottom: 2.5rem;
+  margin-bottom: 2.25rem;
   position: relative;
 }
 
@@ -264,13 +342,14 @@ nav a:hover { color: var(--text); }
 }
 
 .hero-sub {
-  font-size: 17px;
-  color: var(--text-sub);
-  max-width: 500px;
-  line-height: 1.9;
-  font-weight: 300;
-  margin-bottom: 3rem;
+  font-size: 22px;
+  color: var(--text);
+  max-width: 620px;
+  line-height: 1.7;
+  font-weight: 400;
+  margin-bottom: 2.75rem;
   position: relative;
+  opacity: 0.92;
 }
 
 .hero-actions { display: flex; align-items: center; justify-content: center; gap: 2rem; position: relative; flex-wrap: wrap; }
@@ -278,9 +357,9 @@ nav a:hover { color: var(--text); }
 .btn {
   display: inline-block;
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 500;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   text-decoration: none;
   cursor: pointer;
@@ -310,8 +389,8 @@ nav a:hover { color: var(--text); }
   border: none;
   color: var(--text-sub);
   padding: 0;
-  font-size: 12px;
-  letter-spacing: 0.18em;
+  font-size: 15px;
+  letter-spacing: 0.16em;
   transition: color 0.2s ease;
 }
 
@@ -355,9 +434,9 @@ nav a:hover { color: var(--text); }
   align-items: center;
   gap: 0.9rem;
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 11.5px;
+  font-size: 14px;
   font-weight: 600;
-  letter-spacing: 0.3em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--silver);
   margin-bottom: 4rem;
@@ -397,121 +476,129 @@ nav a:hover { color: var(--text); }
 }
 
 .about-body p {
-  font-size: 15.5px;
+  font-size: 20px;
   color: var(--text-sub);
-  line-height: 1.92;
-  margin-bottom: 1.15rem;
+  line-height: 1.75;
+  margin-bottom: 1.25rem;
 }
 
 .about-body p:last-child { margin-bottom: 0; }
 
-/* ─── MEMBER CARS ─── */
+/* ─── FLEET (mockup background + cinematic marquee) ─── */
 .cars-outer {
   position: relative;
   border-top: 1px solid var(--border);
-}
-
-.fleet-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1px;
-  background: var(--border);
-  border: 1px solid var(--border);
-}
-
-.car-card {
-  background: var(--bg-card);
-  transition: background 0.25s ease;
-}
-
-.car-card:hover { background: #121216; }
-
-.car-img {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  background: #111115;
-  border-bottom: 1px solid var(--border);
-  position: relative;
   overflow: hidden;
+  isolation: isolate;
 }
 
-.car-img img {
-  width: 100%;
-  height: 100%;
+.cars-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.cars-bg-img {
   object-fit: cover;
   object-position: center;
-  display: block;
-  filter: brightness(0.78) contrast(1.06) saturate(0.85);
-  transition: transform 0.7s cubic-bezier(0.25, 0, 0, 1), filter 0.5s ease;
+  filter: brightness(0.5) contrast(1.05) saturate(0.78);
 }
 
-.car-card:hover .car-img img {
-  transform: scale(1.04);
-  filter: brightness(0.88) contrast(1.06) saturate(0.9);
-}
-
-.car-img::after {
-  content: '';
+.cars-bg-overlay {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to top, rgba(8,8,9,0.72) 0%, rgba(8,8,9,0.1) 45%, transparent 70%),
-    linear-gradient(to bottom, rgba(8,8,9,0.2) 0%, transparent 30%);
-  pointer-events: none;
-  z-index: 1;
+    linear-gradient(to bottom,
+      rgba(8,8,9,0.92) 0%,
+      rgba(8,8,9,0.4) 28%,
+      rgba(8,8,9,0.4) 60%,
+      rgba(8,8,9,0.95) 100%
+    );
 }
 
-.car-info { padding: 1.75rem 2rem 2.25rem; }
+.cars-inner {
+  text-align: center;
+}
 
-.car-num {
+.cars-inner .section-label {
+  margin-bottom: 2.5rem;
+}
+
+.fleet-launch-label {
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 10.5px;
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 0.3em;
-  color: var(--silver);
-  margin-bottom: 0.75rem;
-}
-
-.car-name {
-  font-family: var(--font-cormorant), Georgia, serif;
-  font-size: 21px;
-  font-weight: 400;
-  color: var(--text);
-  line-height: 1.15;
-  margin-bottom: 0.2rem;
-}
-
-.car-year {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.14em;
-  color: var(--text-sub);
-  margin-bottom: 1.25rem;
-}
-
-.car-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem;
-  margin-bottom: 1.25rem;
-}
-
-.tag {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.32em;
   text-transform: uppercase;
   color: var(--silver);
-  border: 1px solid rgba(200,205,216,0.22);
-  padding: 2px 9px;
+  opacity: 0.78;
+  margin-top: 1rem;
 }
 
-.car-desc {
-  font-size: 13.5px;
-  color: var(--text-sub);
-  line-height: 1.82;
-  font-weight: 300;
+.fleet-marquee {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 1rem 0 6rem;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 7%,
+    black 93%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 7%,
+    black 93%,
+    transparent 100%
+  );
+}
+
+.fleet-marquee-track {
+  display: flex;
+  width: max-content;
+  list-style: none;
+  animation: fleet-marquee-scroll 60s linear infinite;
+  will-change: transform;
+}
+
+.fleet-marquee-item {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-clash), "Clash Display", system-ui, sans-serif;
+  font-size: clamp(56px, 9vw, 140px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  line-height: 1.05;
+  color: var(--silver-bright);
+  white-space: nowrap;
+  text-shadow:
+    0 2px 14px rgba(0,0,0,0.55),
+    0 0 80px rgba(180,200,245,0.08);
+}
+
+.fleet-marquee-name {
+  padding: 0 1.4rem 0 1.4rem;
+}
+
+.fleet-marquee-sep {
+  display: inline-block;
+  opacity: 0.32;
+  font-weight: 700;
+}
+
+@keyframes fleet-marquee-scroll {
+  /* RTL motion: text drifts leftward continuously. */
+  from { transform: translateX(0%); }
+  to   { transform: translateX(-50%); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fleet-marquee-track { animation: none; }
 }
 
 /* ─── FLEET + WHAT WE DO ─── */
@@ -529,9 +616,9 @@ nav a:hover { color: var(--text); }
 
 .fleet-count {
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.2em;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   color: var(--text-sub);
 }
 
@@ -549,19 +636,19 @@ nav a:hover { color: var(--text); }
 
 .wwd-title {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: 1.5rem;
-  font-weight: 400;
+  font-size: 1.875rem;
+  font-weight: 500;
   color: var(--text);
-  margin: 0 0 0.75rem;
+  margin: 0 0 0.85rem;
   letter-spacing: -0.01em;
 }
 
 .wwd-desc {
-  font-size: 15px;
+  font-size: 20px;
   color: var(--text-sub);
-  line-height: 1.85;
-  font-weight: 300;
-  max-width: 640px;
+  line-height: 1.7;
+  font-weight: 400;
+  max-width: 680px;
   margin: 0;
   text-align: center;
 }
@@ -601,7 +688,7 @@ nav a:hover { color: var(--text); }
 
 .founder-inner blockquote {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(22px, 2.8vw, 36px);
+  font-size: clamp(26px, 3.2vw, 42px);
   font-weight: 400;
   font-style: italic;
   color: var(--text);
@@ -624,9 +711,9 @@ nav a:hover { color: var(--text); }
   display: block;
   margin-top: 2rem;
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.28em;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--text-sub);
   font-style: normal;
@@ -671,18 +758,18 @@ nav a:hover { color: var(--text); }
 }
 
 .waitlist-desc {
-  font-size: 15px;
+  font-size: 20px;
   color: var(--text-sub);
-  line-height: 1.9;
-  max-width: 520px;
+  line-height: 1.72;
+  max-width: 600px;
 }
 
 .waitlist-note {
   margin-top: 2rem;
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   color: var(--text-muted);
   line-height: 1.7;
 }
@@ -713,9 +800,9 @@ nav a:hover { color: var(--text); }
 
 .form-group label {
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.24em;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-sub);
 }
@@ -725,10 +812,10 @@ nav a:hover { color: var(--text); }
   background: rgba(255,255,255,0.03);
   border: 1px solid var(--border-hi);
   color: var(--text);
-  padding: 0.75rem 1rem;
+  padding: 0.95rem 1.1rem;
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 15px;
-  font-weight: 300;
+  font-size: 18px;
+  font-weight: 400;
   outline: none;
   border-radius: 0;
   -webkit-appearance: none;
@@ -755,11 +842,11 @@ nav a:hover { color: var(--text); }
   background: transparent;
   border: 1px solid var(--silver);
   color: var(--silver-bright);
-  padding: 0.9rem 2.75rem;
+  padding: 1rem 2.75rem;
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 12px;
+  font-size: 15px;
   font-weight: 600;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   cursor: pointer;
   transition: background 0.22s ease, color 0.22s ease, box-shadow 0.22s ease;
@@ -779,9 +866,9 @@ nav a:hover { color: var(--text); }
   padding: 1.35rem 1.5rem;
   border: 1px solid rgba(200,205,216,0.22);
   background: rgba(200,205,216,0.05);
-  font-size: 14px;
+  font-size: 17px;
   color: var(--silver-bright);
-  line-height: 1.75;
+  line-height: 1.7;
 }
 
 /* ─── FOOTER ─── */
@@ -797,10 +884,10 @@ footer { border-top: 1px solid var(--border); }
 }
 
 .footer-brand {
-  font-family: var(--font-bokor), Georgia, serif;
-  font-size: 22px;
-  font-weight: 400;
-  letter-spacing: 0.05em;
+  font-family: var(--font-clash), "Clash Display", system-ui, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
   text-transform: uppercase;
   color: #ffffff;
   text-decoration: none;
@@ -811,9 +898,9 @@ footer { border-top: 1px solid var(--border); }
 footer p,
 .footer-links a {
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 12px;
-  font-weight: 400;
-  letter-spacing: 0.14em;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
   color: var(--text-sub);
   text-decoration: none;
   transition: color 0.2s;
@@ -836,28 +923,19 @@ footer p,
 /* ─── FLEET INTRO + NOTE ─── */
 .fleet-heading {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(26px, 3vw, 40px);
-  font-weight: 400;
+  font-size: clamp(30px, 3.4vw, 46px);
+  font-weight: 500;
   letter-spacing: -0.01em;
   color: var(--text);
-  margin: 1rem 0 2.5rem;
+  margin: 1rem auto 2.5rem;
   max-width: 720px;
-}
-.fleet-note {
-  font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--text-sub);
   text-align: center;
-  margin: 2.5rem auto 0;
 }
-
 /* ─── WWD (PEACE OF MIND) HEADING + INTRO ─── */
 .wwd-heading {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(26px, 3vw, 40px);
-  font-weight: 400;
+  font-size: clamp(30px, 3.4vw, 46px);
+  font-weight: 500;
   letter-spacing: -0.01em;
   color: var(--text);
   text-align: center;
@@ -866,11 +944,11 @@ footer p,
 }
 .wwd-intro {
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 15px;
+  font-size: 20px;
   color: var(--text-sub);
-  line-height: 1.8;
-  font-weight: 300;
-  max-width: 680px;
+  line-height: 1.7;
+  font-weight: 400;
+  max-width: 720px;
   text-align: center;
   margin: 0 auto 3rem;
 }
@@ -884,8 +962,8 @@ footer p,
 }
 .tiers-heading {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(30px, 3.5vw, 46px);
-  font-weight: 400;
+  font-size: clamp(34px, 3.8vw, 52px);
+  font-weight: 500;
   letter-spacing: -0.01em;
   color: var(--text);
   text-align: center;
@@ -893,8 +971,9 @@ footer p,
 }
 .tiers-scarcity {
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.28em;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--silver);
   text-align: center;
@@ -903,11 +982,12 @@ footer p,
 .tiers-scarcity.tiers-subnote {
   margin-top: -2.25rem;
   margin-bottom: 3rem;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.02em;
   text-transform: none;
-  font-size: 12px;
+  font-size: 15px;
+  font-weight: 400;
   color: var(--text-sub);
-  max-width: 34rem;
+  max-width: 38rem;
 }
 .tiers-grid {
   display: grid;
@@ -929,17 +1009,17 @@ footer p,
 }
 .tier-name {
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.3em;
+  font-size: 13px;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--silver);
-  font-weight: 500;
+  font-weight: 600;
   margin: 0 0 1.75rem;
 }
 .tier-price {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: 44px;
-  font-weight: 300;
+  font-size: 52px;
+  font-weight: 500;
   color: var(--text);
   line-height: 1;
   margin: 0;
@@ -947,31 +1027,33 @@ footer p,
 }
 .tier-price-suffix {
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 13px;
+  font-size: 15px;
+  font-weight: 400;
   color: var(--text-sub);
   margin-left: 0.4rem;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.02em;
 }
 .tier-meta {
   list-style: none;
   padding: 0;
   margin: 2rem 0 0;
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 13px;
+  font-size: 16px;
   color: var(--text);
 }
 .tier-meta li {
   display: flex;
   justify-content: space-between;
   gap: 1rem;
-  padding: 0.75rem 0;
+  padding: 0.8rem 0;
   border-bottom: 1px solid var(--border);
 }
 .tier-meta li:last-child { border-bottom: none; }
 .tier-meta-label {
   color: var(--text-sub);
-  font-size: 10px;
-  letter-spacing: 0.22em;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   align-self: center;
 }
@@ -979,8 +1061,8 @@ footer p,
   text-align: center;
   margin: 3rem auto 0;
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 12px;
-  letter-spacing: 0.12em;
+  font-size: 14px;
+  letter-spacing: 0.06em;
   color: var(--text-sub);
   max-width: 640px;
 }
@@ -996,8 +1078,8 @@ footer p,
 }
 .clubhouse-heading {
   font-family: var(--font-cormorant), Georgia, serif;
-  font-size: clamp(26px, 3vw, 40px);
-  font-weight: 400;
+  font-size: clamp(30px, 3.4vw, 46px);
+  font-weight: 500;
   letter-spacing: -0.01em;
   color: var(--text);
   margin: 0 0 1.5rem;
@@ -1008,11 +1090,11 @@ footer p,
 }
 .clubhouse-body {
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 15px;
+  font-size: 20px;
   color: var(--text-sub);
-  line-height: 1.85;
-  font-weight: 300;
-  max-width: 640px;
+  line-height: 1.7;
+  font-weight: 400;
+  max-width: 680px;
   margin: 0 auto 1.25rem;
 }
 .socials-row {
@@ -1024,12 +1106,13 @@ footer p,
 }
 .socials-row a {
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 11px;
-  letter-spacing: 0.25em;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--text-sub);
   text-decoration: none;
-  padding: 0.75rem 1.5rem;
+  padding: 0.85rem 1.5rem;
   border: 1px solid var(--border);
   transition: border-color 0.2s, color 0.2s;
 }
@@ -1048,10 +1131,11 @@ footer p,
 }
 .perks-list li {
   font-family: var(--font-dm-sans), system-ui, sans-serif;
-  font-size: 14px;
+  font-size: 18px;
+  font-weight: 400;
   color: var(--text);
-  line-height: 1.6;
-  padding: 0.75rem 0 0.75rem 1.5rem;
+  line-height: 1.55;
+  padding: 0.95rem 0 0.95rem 1.75rem;
   border-bottom: 1px solid var(--border);
   position: relative;
 }
@@ -1069,6 +1153,103 @@ footer p,
   .about-grid { grid-template-columns: 1fr; gap: 4rem; }
   .waitlist-card { padding: 2rem 1.5rem; }
   .tiers-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+}
+
+/* ─── HERO REVEAL (synced to vault opening) ───
+   While the overlay is mounted and not yet `.done`, the hero sits in a
+   pre-state (blurred + transparent). When the overlay gains `.opening`,
+   the wordmark resolves out of blur as the doors part, then the
+   supporting lines rise in sequence. Once the overlay reaches `.done`
+   the selectors stop matching and the hero falls back to its base CSS.
+*/
+body:has(#vault-overlay:not(.done)) .hero-brand,
+body:has(#vault-overlay:not(.done)) .hero-eyebrow,
+body:has(#vault-overlay:not(.done)) .hero-sub-heading,
+body:has(#vault-overlay:not(.done)) .hero-sub,
+body:has(#vault-overlay:not(.done)) .hero-actions {
+  opacity: 0;
+}
+
+body:has(#vault-overlay:not(.done)) .hero-brand {
+  filter:
+    drop-shadow(0 14px 40px rgba(0,0,0,0.55))
+    drop-shadow(0 0 110px rgba(180,200,245,0.12))
+    blur(14px);
+  transform: scale(1.04);
+}
+
+body:has(#vault-overlay:not(.done)) .hero-eyebrow,
+body:has(#vault-overlay:not(.done)) .hero-sub-heading,
+body:has(#vault-overlay:not(.done)) .hero-sub,
+body:has(#vault-overlay:not(.done)) .hero-actions {
+  transform: translateY(14px);
+}
+
+body:has(#vault-overlay.opening) .hero-brand {
+  animation: hero-brand-reveal 1.4s cubic-bezier(0.22, 0, 0.08, 1) 0.6s forwards;
+}
+body:has(#vault-overlay.opening) .hero-eyebrow {
+  animation: hero-line-reveal 0.8s cubic-bezier(0.22, 0, 0.08, 1) 0.9s forwards;
+}
+body:has(#vault-overlay.opening) .hero-sub-heading {
+  animation: hero-line-reveal 0.8s cubic-bezier(0.22, 0, 0.08, 1) 1.2s forwards;
+}
+body:has(#vault-overlay.opening) .hero-sub {
+  animation: hero-line-reveal 0.8s cubic-bezier(0.22, 0, 0.08, 1) 1.5s forwards;
+}
+body:has(#vault-overlay.opening) .hero-actions {
+  animation: hero-line-reveal 0.8s cubic-bezier(0.22, 0, 0.08, 1) 1.7s forwards;
+}
+
+@keyframes hero-brand-reveal {
+  from {
+    opacity: 0;
+    filter:
+      drop-shadow(0 14px 40px rgba(0,0,0,0.55))
+      drop-shadow(0 0 110px rgba(180,200,245,0.12))
+      blur(14px);
+    transform: scale(1.04);
+  }
+  to {
+    opacity: 1;
+    filter:
+      drop-shadow(0 14px 40px rgba(0,0,0,0.55))
+      drop-shadow(0 0 110px rgba(180,200,245,0.12))
+      blur(0);
+    transform: scale(1);
+  }
+}
+
+@keyframes hero-line-reveal {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes hero-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body:has(#vault-overlay:not(.done)) .hero-brand {
+    filter:
+      drop-shadow(0 14px 40px rgba(0,0,0,0.55))
+      drop-shadow(0 0 110px rgba(180,200,245,0.12));
+    transform: none;
+  }
+  body:has(#vault-overlay:not(.done)) .hero-eyebrow,
+  body:has(#vault-overlay:not(.done)) .hero-sub-heading,
+  body:has(#vault-overlay:not(.done)) .hero-sub,
+  body:has(#vault-overlay:not(.done)) .hero-actions {
+    transform: none;
+  }
+  body:has(#vault-overlay.opening) .hero-brand,
+  body:has(#vault-overlay.opening) .hero-eyebrow,
+  body:has(#vault-overlay.opening) .hero-sub-heading,
+  body:has(#vault-overlay.opening) .hero-sub,
+  body:has(#vault-overlay.opening) .hero-actions {
+    animation: hero-fade-in 0.4s ease 0s forwards;
+  }
 }
 
 @media (max-width: 700px) {
