@@ -20,6 +20,7 @@ const out = path.join(dir, `${label}-${n}.png`);
 
 const browser = await puppeteer.launch({ headless: "new" });
 const page = await browser.newPage();
+await page.setCacheEnabled(false); // always render current assets, never a stale disk cache
 await page.setViewport({ width: vw, height: vh, deviceScaleFactor: 1 });
 if (reducedMotion) {
   await page.emulateMediaFeatures([

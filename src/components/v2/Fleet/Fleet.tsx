@@ -137,7 +137,7 @@ export default function Fleet() {
                   </div>
                 </div>
                 <div className="fleet-spec">
-                  <dt className="gauge gauge--dim">0-62</dt>
+                  <dt className="gauge gauge--dim">{car.sprintLabel}</dt>
                   <dd>{car.sprint}</dd>
                   <div className="fleet-bar">
                     <div className="fleet-bar-fill" />

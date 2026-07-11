@@ -152,4 +152,8 @@
   .hero-word {
     letter-spacing: 0.005em;
   }
+  .hero-kicker {
+    font-size: 0.62rem;
+    letter-spacing: 0.1em;
+  }
 }

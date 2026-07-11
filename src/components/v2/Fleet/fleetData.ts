@@ -1,6 +1,7 @@
 /*
- * Launch line-up. Spec figures pending verification by research pass;
- * anything marked verify:false must be confirmed before go-live.
+ * Launch line-up. Figures verified against published UK-market specs
+ * on 2026-07-11 (sources in the redesign notes). Sprint figures use the
+ * metric each source actually published, named per row in sprintLabel.
  */
 export type FleetCar = {
   slug: string;
@@ -9,12 +10,13 @@ export type FleetCar = {
   years: string;
   engine: string;
   power: string;
-  sprint: string; /* 0-62 mph */
+  sprint: string;
+  sprintLabel: string;
   weight: string;
   gearbox: string;
   line: string; /* feel line, not a spec claim */
-  image: string | null; /* /cars/<slug>.avif once graded, null = slot awaiting asset */
-  credit?: string;
+  image: string | null;
+  credit: string;
   verified: boolean;
 };
 
@@ -24,28 +26,32 @@ export const FLEET: FleetCar[] = [
     name: "RS4",
     fullName: "Audi RS4 B7",
     years: "2006",
-    engine: "4.2 V8 · NA",
+    engine: "4.2 V8 · naturally aspirated",
     power: "414 bhp",
     sprint: "4.8 s",
+    sprintLabel: "0-62",
     weight: "1,650 kg",
     gearbox: "6-speed manual",
-    line: "A V8 that revs to the sky and a chassis that lets you use it.",
-    image: null,
-    verified: false,
+    line: "A V8 that revs past eight thousand and a chassis that lets you use it.",
+    image: "/cars/rs4.avif",
+    credit: "Photo: RS4 Power, Wikimedia Commons, CC BY-SA 3.0",
+    verified: true,
   },
   {
     slug: "focusrs",
     name: "FOCUS RS",
     fullName: "Ford Focus RS Mk1",
     years: "2002",
-    engine: "2.0 turbo · I4",
+    engine: "2.0 turbo · inline 4",
     power: "212 bhp",
-    sprint: "6.4 s",
+    sprint: "6.7 s",
+    sprintLabel: "0-62",
     weight: "1,278 kg",
     gearbox: "5-speed manual",
     line: "Front-drive fury. It writhes, you grin, it grips.",
-    image: null,
-    verified: false,
+    image: "/cars/focusrs.avif",
+    credit: "Photo: Kieran White, Wikimedia Commons, CC BY 2.0",
+    verified: true,
   },
   {
     slug: "mr2",
@@ -54,12 +60,14 @@ export const FLEET: FleetCar[] = [
     years: "2000",
     engine: "1.8 · mid-engine",
     power: "138 bhp",
-    sprint: "7.9 s",
+    sprint: "7.7 s",
+    sprintLabel: "0-60",
     weight: "975 kg",
     gearbox: "5-speed manual",
     line: "A featherweight roadster with the engine behind your ears.",
-    image: null,
-    verified: false,
+    image: "/cars/mr2.avif",
+    credit: "Photo: Vauxford, Wikimedia Commons, CC BY-SA 4.0",
+    verified: true,
   },
   {
     slug: "xkr",
@@ -69,24 +77,28 @@ export const FLEET: FleetCar[] = [
     engine: "4.0 V8 · supercharged",
     power: "370 bhp",
     sprint: "5.2 s",
-    weight: "1,640 kg",
+    sprintLabel: "0-60",
+    weight: "1,717 kg",
     gearbox: "5-speed auto",
     line: "A supercharged grand tourer that whines like it means it.",
-    image: null,
-    verified: false,
+    image: "/cars/xkr.avif",
+    credit: "Photo: Kees Janssens, Wikimedia Commons, CC0",
+    verified: true,
   },
   {
     slug: "elise",
     name: "ELISE",
-    fullName: "Lotus Elise S2",
-    years: "2001",
-    engine: "1.8 · K-series",
-    power: "120 bhp",
-    sprint: "5.8 s",
-    weight: "860 kg",
+    fullName: "Lotus Elise S2 111S",
+    years: "2004",
+    engine: "1.8 K-series VVC",
+    power: "156 bhp",
+    sprint: "5.1 s",
+    sprintLabel: "0-60",
+    weight: "880 kg",
     gearbox: "5-speed manual",
     line: "Steering so honest it feels wired to your fingertips.",
-    image: null,
-    verified: false,
+    image: "/cars/elise.avif",
+    credit: "Photo: Calreyn88, Wikimedia Commons, CC BY-SA 4.0",
+    verified: true,
   },
 ];
