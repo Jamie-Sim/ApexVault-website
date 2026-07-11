@@ -1,0 +1,82 @@
+.perks {
+  background: var(--av-void);
+  padding: clamp(6rem, 12vh, 10rem) var(--av-px);
+}
+
+.perks-inner {
+  max-width: var(--av-max-w);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(3rem, 6vw, 7rem);
+  align-items: start;
+}
+
+.perks-heading {
+  font-size: clamp(2.4rem, 4.6vw, 4.2rem);
+  font-weight: 600;
+  color: var(--av-phosphor);
+  margin: 1.3rem 0 1.6rem;
+}
+
+.perks-intro {
+  color: var(--av-smoke);
+  font-weight: 340;
+  line-height: 1.7;
+  max-width: 40ch;
+}
+
+.perks-ledger {
+  display: grid;
+}
+
+.perks-row {
+  display: grid;
+  grid-template-columns: 7rem 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 1.5rem;
+  row-gap: 0.5rem;
+  padding: 2rem 0;
+  border-top: 1px solid var(--av-line);
+  transition: border-color 0.3s var(--ease-soft);
+}
+
+.perks-row:hover {
+  border-top-color: var(--av-line-hi);
+}
+
+.perks-row:last-child {
+  border-bottom: 1px solid var(--av-line);
+}
+
+.perks-row-label {
+  grid-row: 1 / span 2;
+  padding-top: 0.4rem;
+}
+
+.perks-row-title {
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  font-weight: 580;
+  color: var(--av-phosphor);
+}
+
+.perks-row-desc {
+  color: var(--av-smoke);
+  font-weight: 340;
+  line-height: 1.65;
+  max-width: 56ch;
+}
+
+@media (max-width: 900px) {
+  .perks-inner {
+    grid-template-columns: 1fr;
+  }
+
+  .perks-row {
+    grid-template-columns: 1fr;
+  }
+
+  .perks-row-label {
+    grid-row: auto;
+  }
+}

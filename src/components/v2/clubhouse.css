@@ -1,0 +1,46 @@
+.club {
+  background: var(--av-coal);
+  border-top: 1px solid var(--av-line);
+  padding: clamp(5rem, 10vh, 8rem) var(--av-px);
+}
+
+.club-inner {
+  max-width: var(--av-max-w);
+  margin: 0 auto;
+}
+
+.club-heading {
+  font-size: clamp(2rem, 3.8vw, 3.4rem);
+  font-weight: 600;
+  color: var(--av-phosphor);
+  margin: 1.2rem 0 1.4rem;
+}
+
+.club-em {
+  color: var(--av-amber);
+}
+
+.club-body {
+  color: var(--av-smoke);
+  font-weight: 340;
+  line-height: 1.7;
+  max-width: 56ch;
+  margin-bottom: 1em;
+}
+
+.club-socials {
+  margin-top: 2.2rem;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.club-socials-links {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--av-phosphor);
+}
+
+.club-soon {
+  letter-spacing: 0.08em;
+}

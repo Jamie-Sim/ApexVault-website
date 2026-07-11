@@ -33,7 +33,7 @@
   padding: 0 var(--av-px);
 }
 
-.hero-eyebrow {
+.hero-kicker {
   margin-bottom: 2rem;
 }
 
@@ -60,7 +60,7 @@
   transform-origin: 0% 50%;
 }
 
-.hero-sub {
+.hero-lede {
   font-size: clamp(1rem, 1.5vw, 1.2rem);
   font-weight: 340;
   line-height: 1.6;
@@ -75,7 +75,7 @@
   flex-wrap: wrap;
 }
 
-.btn-primary {
+.av2 .av-btn {
   font-family: var(--font-mono), monospace;
   font-size: 0.78rem;
   letter-spacing: 0.14em;
@@ -92,18 +92,18 @@
     0 8px 32px rgba(255, 158, 44, 0.14);
 }
 
-.btn-primary:hover {
+.av2 .av-btn:hover {
   transform: translateY(-2px);
   box-shadow:
     0 0 0 1px rgba(255, 158, 44, 0.6),
     0 14px 44px rgba(255, 158, 44, 0.24);
 }
 
-.btn-primary:active {
+.av2 .av-btn:active {
   transform: translateY(0);
 }
 
-.btn-ghost {
+.av2 .av-btn-ghost {
   font-family: var(--font-mono), monospace;
   font-size: 0.78rem;
   letter-spacing: 0.14em;
@@ -117,13 +117,13 @@
     transform 0.25s var(--ease-soft);
 }
 
-.btn-ghost:hover {
+.av2 .av-btn-ghost:hover {
   color: var(--av-amber);
   border-color: var(--av-line-hi);
   transform: translateY(-2px);
 }
 
-.btn-ghost:active {
+.av2 .av-btn-ghost:active {
   transform: translateY(0);
 }
 

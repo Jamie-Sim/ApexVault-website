@@ -1,0 +1,116 @@
+.tiers {
+  background: var(--av-coal);
+  padding: clamp(6rem, 12vh, 10rem) var(--av-px);
+  border-top: 1px solid var(--av-line);
+}
+
+.tiers-inner {
+  max-width: var(--av-max-w);
+  margin: 0 auto;
+}
+
+.tiers-title {
+  font-size: clamp(2.6rem, 5vw, 4.6rem);
+  font-weight: 600;
+  color: var(--av-phosphor);
+  margin: 1.3rem 0 1.2rem;
+}
+
+.tiers-sub {
+  color: var(--av-smoke);
+  font-weight: 340;
+  line-height: 1.7;
+  max-width: 52ch;
+  margin-bottom: 3.5rem;
+}
+
+.tiers-count {
+  font-family: var(--font-mono), monospace;
+  color: var(--av-amber);
+  font-variant-numeric: tabular-nums;
+}
+
+.tiers-rows {
+  display: grid;
+}
+
+.tier-row {
+  display: grid;
+  grid-template-columns: 3.5rem minmax(14rem, 1fr) minmax(0, 1.6fr);
+  align-items: center;
+  gap: clamp(1.4rem, 3vw, 3rem);
+  padding: 1.9rem 1.2rem;
+  border-top: 1px solid var(--av-line);
+  transition: background-color 0.3s var(--ease-soft);
+}
+
+.tier-row:last-child {
+  border-bottom: 1px solid var(--av-line);
+}
+
+.tier-row:hover {
+  background-color: rgba(255, 158, 44, 0.03);
+}
+
+.tier-row--red:hover {
+  background-color: rgba(230, 57, 43, 0.04);
+}
+
+.tier-dial {
+  display: block;
+}
+
+.tier-title {
+  font-size: clamp(1.4rem, 2.2vw, 1.9rem);
+  font-weight: 600;
+  color: var(--av-phosphor);
+}
+
+.tier-row--red .tier-title {
+  color: var(--av-redline);
+}
+
+.tier-rate {
+  font-family: var(--font-mono), monospace;
+  color: var(--av-amber);
+  margin-top: 0.4rem;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.tier-rate span {
+  color: var(--av-ash);
+}
+
+.tier-specs {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  margin: 0;
+}
+
+.tier-specs dd {
+  margin: 0.4rem 0 0;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.92rem;
+  color: var(--av-phosphor);
+  font-variant-numeric: tabular-nums;
+}
+
+.tiers-foot {
+  margin-top: 2.6rem;
+  color: var(--av-smoke);
+  font-weight: 340;
+  max-width: 52ch;
+}
+
+@media (max-width: 900px) {
+  .tier-row {
+    grid-template-columns: 3rem 1fr;
+    row-gap: 1.2rem;
+  }
+
+  .tier-specs {
+    grid-column: 1 / -1;
+  }
+}

@@ -1,0 +1,52 @@
+.founder {
+  background: var(--av-void);
+  padding: clamp(7rem, 14vh, 11rem) var(--av-px);
+  display: grid;
+  place-items: center;
+  position: relative;
+}
+
+.founder::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    55% 55% at 50% 50%,
+    rgba(255, 158, 44, 0.05) 0%,
+    rgba(6, 5, 5, 0) 70%
+  );
+  pointer-events: none;
+}
+
+.founder-wrap {
+  position: relative;
+  max-width: 46rem;
+  text-align: center;
+}
+
+.founder-eyebrow {
+  margin-bottom: 2.4rem;
+}
+
+.founder-quote p {
+  font-size: clamp(1.5rem, 2.8vw, 2.3rem);
+  font-weight: 430;
+  line-height: 1.45;
+  color: var(--av-phosphor);
+  margin: 0 0 1.4em;
+}
+
+.founder-cite {
+  display: grid;
+  gap: 0.5rem;
+  font-style: normal;
+}
+
+.founder-name {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 560;
+  font-size: 1.05rem;
+  letter-spacing: 0.04em;
+  color: var(--av-amber);
+  text-transform: uppercase;
+}

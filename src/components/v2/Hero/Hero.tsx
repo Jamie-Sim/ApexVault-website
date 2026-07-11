@@ -72,7 +72,7 @@ export default function Hero() {
       <HeroCanvas />
 
       <div className="hero-content">
-        <p className="gauge hero-eyebrow" data-animate>
+        <p className="gauge hero-kicker" data-animate>
           Glasgow · Private car club · Founding 2026
         </p>
         <h1 className="hero-word" data-animate>
@@ -81,15 +81,15 @@ export default function Hero() {
           VAULT
         </h1>
         <div className="hero-rule" aria-hidden="true" data-animate />
-        <p className="hero-sub" data-animate>
+        <p className="hero-lede" data-animate>
           The Drive Society. A members&rsquo; fleet of analog-era performance
           cars, kept warm, insured and ready. You&nbsp;just&nbsp;drive.
         </p>
         <div className="hero-ctas" data-animate>
-          <a className="btn-primary" href="#join">
+          <a className="av-btn" href="#join">
             Secure a founding place
           </a>
-          <a className="btn-ghost" href="#fleet">
+          <a className="av-btn-ghost" href="#fleet">
             See the fleet
           </a>
         </div>

@@ -1,0 +1,197 @@
+.fleet {
+  position: relative;
+  background: var(--av-coal);
+  overflow: clip;
+}
+
+.fleet-track {
+  display: flex;
+  align-items: stretch;
+  height: 100vh;
+  width: max-content;
+}
+
+/* ---------- intro panel ---------- */
+
+.fleet-intro {
+  width: 44vw;
+  min-width: 30rem;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 6vw;
+  position: relative;
+}
+
+.fleet-intro h2 {
+  font-size: clamp(2.6rem, 5vw, 4.6rem);
+  font-weight: 600;
+  margin: 1.4rem 0 1.6rem;
+  color: var(--av-phosphor);
+}
+
+.fleet-intro-sub {
+  color: var(--av-smoke);
+  font-weight: 340;
+  line-height: 1.7;
+  max-width: 34ch;
+}
+
+.fleet-hint {
+  position: absolute;
+  bottom: 2.4rem;
+}
+
+/* ---------- car panels ---------- */
+
+.fleet-car {
+  position: relative;
+  width: 74vw;
+  flex-shrink: 0;
+  display: grid;
+  align-content: end;
+  border-left: 1px solid var(--av-line);
+}
+
+.fleet-media {
+  position: absolute;
+  inset: 6vh 4vw 22vh 4vw;
+  overflow: hidden;
+}
+
+.fleet-img {
+  object-fit: cover;
+  filter: grayscale(0.85) contrast(1.06) brightness(0.72);
+}
+
+.fleet-img--slot {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(
+      80% 60% at 50% 45%,
+      rgba(255, 158, 44, 0.08) 0%,
+      rgba(6, 5, 5, 0) 70%
+    ),
+    var(--av-panel);
+}
+
+/* warm grade + fade into the void at the bottom */
+.fleet-media-grade {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(11, 9, 8, 0.25) 0%,
+      rgba(11, 9, 8, 0) 30%,
+      rgba(11, 9, 8, 0.05) 62%,
+      rgba(11, 9, 8, 0.92) 100%
+    ),
+    radial-gradient(
+      120% 90% at 50% 40%,
+      rgba(255, 158, 44, 0.1) 0%,
+      rgba(230, 57, 43, 0.05) 55%,
+      rgba(11, 9, 8, 0.25) 100%
+    );
+  mix-blend-mode: normal;
+}
+
+.fleet-meta {
+  position: relative;
+  z-index: 2;
+  padding: 0 6vw 7vh;
+}
+
+.fleet-fullname {
+  margin-bottom: 0.7rem;
+}
+
+.fleet-name {
+  font-size: clamp(4rem, 10vw, 11rem);
+  font-weight: 640;
+  line-height: 0.9;
+  color: var(--av-phosphor);
+  text-shadow: 0 0 60px rgba(6, 5, 5, 0.9);
+  will-change: transform;
+}
+
+.fleet-line {
+  margin: 1.2rem 0 2rem;
+  color: var(--av-smoke);
+  font-weight: 340;
+  font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+  max-width: 44ch;
+}
+
+.fleet-specs {
+  display: flex;
+  gap: clamp(1.4rem, 3vw, 3.4rem);
+  flex-wrap: wrap;
+  margin: 0;
+  border-top: 1px solid var(--av-line);
+  padding-top: 1.3rem;
+}
+
+.fleet-spec dd {
+  margin: 0.45rem 0 0;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.95rem;
+  color: var(--av-phosphor);
+  font-variant-numeric: tabular-nums;
+}
+
+.fleet-bar {
+  margin-top: 0.55rem;
+  width: 5.4rem;
+  height: 2px;
+  background: rgba(244, 241, 234, 0.12);
+}
+
+.fleet-bar-fill {
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(90deg, var(--av-ember), var(--av-redline));
+  transform-origin: 0 50%;
+}
+
+/* ---------- mobile: native horizontal scroll-snap ---------- */
+
+@media (max-width: 768px) {
+  .fleet-track {
+    width: auto;
+    height: auto;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .fleet-intro,
+  .fleet-car {
+    scroll-snap-align: start;
+  }
+
+  .fleet-intro {
+    width: 86vw;
+    min-width: 0;
+    padding: 5rem 1.5rem 3rem;
+  }
+
+  .fleet-car {
+    width: 92vw;
+    min-height: 82vh;
+  }
+
+  .fleet-media {
+    inset: 4vh 1rem 34vh 1rem;
+  }
+
+  .fleet-meta {
+    padding: 0 1.5rem 3rem;
+  }
+
+  .fleet-hint {
+    display: none;
+  }
+}
