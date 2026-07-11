@@ -1,0 +1,126 @@
+.ign {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: radial-gradient(
+    120% 90% at 50% 45%,
+    #0c0906 0%,
+    #060505 62%,
+    #040404 100%
+  );
+  display: grid;
+  place-items: center;
+  clip-path: inset(0 0 0 0);
+}
+
+.ign-center {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.ign-dial {
+  width: min(62vmin, 400px);
+  height: auto;
+  overflow: visible;
+}
+
+.ign-num {
+  font-family: var(--font-mono), monospace;
+  font-size: 17px;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+
+.ign-unit {
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-anchor: middle;
+  fill: var(--av-ash);
+}
+
+.ign-needle {
+  stroke: var(--av-redline);
+  stroke-width: 3;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 6px rgba(230, 57, 43, 0.55));
+}
+
+.ign-glow {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    50% 50% at 50% 50%,
+    rgba(230, 57, 43, 0.16) 0%,
+    rgba(230, 57, 43, 0) 70%
+  );
+}
+
+.ign-readout {
+  position: absolute;
+  bottom: 17%;
+  display: flex;
+  gap: 1.1rem;
+}
+
+.ign-lamp {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.16em;
+  color: var(--av-ember);
+  border: 1px solid rgba(255, 158, 44, 0.35);
+  padding: 0.28rem 0.5rem;
+  opacity: 0;
+}
+
+.ign-lamp--oil {
+  color: var(--av-redline);
+  border-color: rgba(230, 57, 43, 0.4);
+}
+
+.ign-statuses {
+  position: absolute;
+  bottom: 6%;
+  display: grid;
+  place-items: center;
+}
+
+.ign-statuses > * {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+}
+
+.ign-status--ready {
+  opacity: 0;
+  color: var(--av-amber);
+}
+
+.ign-skip {
+  position: absolute;
+  bottom: 2rem;
+  right: 2.4rem;
+  padding: 0.6rem 0.9rem;
+  letter-spacing: 0.18em;
+  transition: color 0.25s var(--ease-soft);
+}
+
+.ign-skip:hover {
+  color: var(--av-amber);
+}
+
+.ign-skip:active {
+  transform: translateY(1px);
+}
+
+@media (max-width: 700px) {
+  .ign-readout {
+    gap: 0.6rem;
+  }
+  .ign-skip {
+    right: 1.25rem;
+    bottom: 1.25rem;
+  }
+}
