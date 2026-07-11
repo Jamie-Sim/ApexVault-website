@@ -19,7 +19,12 @@ export default function Fleet() {
 
   useGSAP(
     () => {
-      if (!root.current || tier === "static") return;
+      if (
+        !root.current ||
+        tier === "static" ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      )
+        return;
 
       const mm = gsap.matchMedia();
 

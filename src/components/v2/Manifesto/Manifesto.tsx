@@ -21,7 +21,12 @@ export default function Manifesto() {
 
   useGSAP(
     () => {
-      if (!root.current || tier === "static") return;
+      if (
+        !root.current ||
+        tier === "static" ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      )
+        return;
 
       const q = gsap.utils.selector(root);
 

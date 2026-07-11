@@ -25,7 +25,12 @@ export default function Reveal({
 
   useGSAP(
     () => {
-      if (!ref.current || tier === "static") return;
+      if (
+        !ref.current ||
+        tier === "static" ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      )
+        return;
       gsap.fromTo(
         ref.current,
         { autoAlpha: 0, y },

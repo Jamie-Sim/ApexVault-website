@@ -24,6 +24,20 @@
   opacity: 1;
 }
 
+/* still of the instrument for lite/static tiers and no-JS; on the full
+   tier it paints first and hands over to the live canvas */
+.hero-poster {
+  position: absolute;
+  inset: 0;
+  background: url("/v2/hero-poster.avif") center / cover no-repeat;
+  opacity: 1;
+  transition: opacity 1.2s var(--ease-soft);
+}
+
+.hero:has(.hero-canvas[data-ready="true"]) .hero-poster {
+  opacity: 0;
+}
+
 .hero-content {
   position: relative;
   z-index: 2;
@@ -140,6 +154,11 @@
 
 .hero-foot-right {
   color: var(--av-amber);
+}
+
+/* no rev to scroll for on the static tier */
+html[data-motion="static"] .hero-foot .gauge--dim {
+  display: none;
 }
 
 @media (max-width: 700px) {

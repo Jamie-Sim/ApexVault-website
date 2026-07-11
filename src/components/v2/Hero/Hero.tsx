@@ -18,9 +18,17 @@ export default function Hero() {
     () => {
       if (!root.current) return;
 
+      const reduced = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+
       const reveal = () => {
         if (played.current) return;
         played.current = true;
+        if (reduced) {
+          gsap.set("[data-animate]", { autoAlpha: 1 });
+          return;
+        }
         gsap
           .timeline({ defaults: { ease: "power3.out" } })
           .fromTo(
@@ -69,6 +77,7 @@ export default function Hero() {
 
   return (
     <section ref={root} className="hero" id="top">
+      <div className="hero-poster" aria-hidden="true" />
       <HeroCanvas />
 
       <div className="hero-content">
