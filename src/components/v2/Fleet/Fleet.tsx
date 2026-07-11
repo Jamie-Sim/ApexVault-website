@@ -136,17 +136,21 @@ export default function Fleet() {
                 </div>
                 <div className="fleet-spec">
                   <dt className="gauge gauge--dim">Power</dt>
-                  <dd>{car.power}</dd>
-                  <div className="fleet-bar">
-                    <div className="fleet-bar-fill" />
-                  </div>
+                  <dd>
+                    {car.power}
+                    <span className="fleet-bar">
+                      <span className="fleet-bar-fill" />
+                    </span>
+                  </dd>
                 </div>
                 <div className="fleet-spec">
                   <dt className="gauge gauge--dim">{car.sprintLabel}</dt>
-                  <dd>{car.sprint}</dd>
-                  <div className="fleet-bar">
-                    <div className="fleet-bar-fill" />
-                  </div>
+                  <dd>
+                    {car.sprint}
+                    <span className="fleet-bar">
+                      <span className="fleet-bar-fill" />
+                    </span>
+                  </dd>
                 </div>
                 <div className="fleet-spec">
                   <dt className="gauge gauge--dim">Weight</dt>

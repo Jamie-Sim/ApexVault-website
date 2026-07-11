@@ -7,6 +7,44 @@
 .club-inner {
   max-width: var(--av-max-w);
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  gap: clamp(3rem, 6vw, 7rem);
+  align-items: start;
+}
+
+.club-board {
+  padding-top: 0.4rem;
+}
+
+.club-board-list {
+  list-style: none;
+  padding: 0;
+  margin: 1.1rem 0 0;
+}
+
+.club-board-list li {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.5rem, 2.6vw, 2.2rem);
+  font-weight: 560;
+  color: var(--av-phosphor);
+  padding: 1.1rem 0;
+  border-top: 1px solid var(--av-line);
+  transition: color 0.3s var(--ease-soft);
+}
+
+.club-board-list li:last-child {
+  border-bottom: 1px solid var(--av-line);
+}
+
+.club-board-list li:hover {
+  color: var(--av-amber);
+}
+
+@media (max-width: 900px) {
+  .club-inner {
+    grid-template-columns: 1fr;
+  }
 }
 
 .club-heading {

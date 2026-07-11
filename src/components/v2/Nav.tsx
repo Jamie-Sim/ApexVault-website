@@ -31,7 +31,7 @@ export default function Nav() {
       <a
         className="nav-brand"
         href="#top"
-        aria-label="Apex Vault, back to top"
+        aria-label="AV — Apex Vault, back to top"
         onClick={(e) => go(e, "#top")}
       >
         AV

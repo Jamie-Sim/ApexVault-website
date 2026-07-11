@@ -19,6 +19,18 @@ export default function HeroCanvas() {
   const wrap = useRef<HTMLDivElement>(null);
   const [ready, setReady] = useState(false);
   const [visible, setVisible] = useState(true);
+  const [mount, setMount] = useState(false);
+
+  /* boot three.js off the critical path; the poster covers the gap */
+  useEffect(() => {
+    const start = () => setMount(true);
+    if ("requestIdleCallback" in window) {
+      const id = window.requestIdleCallback(start, { timeout: 1600 });
+      return () => window.cancelIdleCallback(id);
+    }
+    const t = setTimeout(start, 900);
+    return () => clearTimeout(t);
+  }, []);
 
   /* pause rendering when the hero is off screen */
   useEffect(() => {
@@ -40,7 +52,12 @@ export default function HeroCanvas() {
       data-ready={ready ? "true" : "false"}
       aria-hidden="true"
     >
-      <Scene frameloop={visible ? "always" : "never"} onReady={() => setReady(true)} />
+      {mount && (
+        <Scene
+          frameloop={visible ? "always" : "never"}
+          onReady={() => setReady(true)}
+        />
+      )}
     </div>
   );
 }

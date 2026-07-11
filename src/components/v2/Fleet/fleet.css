@@ -143,6 +143,7 @@
 }
 
 .fleet-bar {
+  display: block;
   margin-top: 0.55rem;
   width: 5.4rem;
   height: 2px;
@@ -150,6 +151,7 @@
 }
 
 .fleet-bar-fill {
+  display: block;
   height: 100%;
   width: 100%;
   background: linear-gradient(90deg, var(--av-ember), var(--av-redline));
