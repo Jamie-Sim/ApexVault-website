@@ -31,7 +31,7 @@ await new Promise((r) => setTimeout(r, 600 + extraWait));
 
 if (scrollY > 0) {
   await page.evaluate((y) => window.scrollTo(0, y), scrollY);
-  await new Promise((r) => setTimeout(r, 300));
+  await new Promise((r) => setTimeout(r, 300 + extraWait)); // let scrubbed animations catch up
 }
 
 await page.screenshot({ path: out, fullPage: mode === "full" });

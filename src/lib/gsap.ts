@@ -14,4 +14,8 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
 
 ScrollTrigger.config({ ignoreMobileResize: true });
 
+if (process.env.NODE_ENV === "development" && typeof window !== "undefined") {
+  (window as unknown as Record<string, unknown>).__ScrollTrigger = ScrollTrigger;
+}
+
 export { gsap, useGSAP, ScrollTrigger, SplitText };

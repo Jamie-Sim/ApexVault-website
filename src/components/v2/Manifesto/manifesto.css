@@ -1,0 +1,114 @@
+.mnf {
+  position: relative;
+  background: var(--av-void);
+}
+
+.mnf-stage {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 0 var(--av-px);
+  position: relative;
+  overflow: clip;
+}
+
+.mnf-eyebrow {
+  position: absolute;
+  top: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* the three staged blocks stack in the same grid cell */
+.mnf-hook,
+.mnf-charges,
+.mnf-climax {
+  grid-area: 1 / 1;
+  text-align: center;
+  max-width: 56rem;
+}
+
+.mnf-hook {
+  font-family: var(--font-body), sans-serif;
+  font-size: clamp(1.7rem, 3.6vw, 3rem);
+  font-weight: 320;
+  line-height: 1.25;
+  color: var(--av-phosphor);
+}
+
+.mnf-hook .mnf-word {
+  display: inline-block;
+}
+
+.mnf-charge {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2rem, 5vw, 4.2rem);
+  font-weight: 540;
+  line-height: 1.18;
+  color: var(--av-phosphor);
+}
+
+.mnf-title {
+  font-size: clamp(3rem, 9.5vw, 8.6rem);
+  font-weight: 640;
+  line-height: 0.95;
+  letter-spacing: 0.01em;
+  color: var(--av-phosphor);
+  display: grid;
+  gap: 0.4rem;
+}
+
+.mnf-title-mask {
+  display: block;
+  overflow: hidden;
+}
+
+.mnf-title-line {
+  display: block;
+}
+
+.mnf-flatline {
+  height: 3px;
+  width: min(420px, 52%);
+  margin: 2.4rem auto 2rem;
+  background: var(--av-redline);
+  box-shadow: 0 0 18px rgba(230, 57, 43, 0.55);
+  transform-origin: 12% 50%;
+}
+
+.mnf-resolve {
+  font-family: var(--font-mono), monospace;
+  font-size: clamp(0.85rem, 1.4vw, 1.05rem);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--av-amber);
+}
+
+.mnf-ethos {
+  padding: 9rem var(--av-px) 10rem;
+  display: grid;
+  place-items: center;
+}
+
+.mnf-ethos p {
+  max-width: 52ch;
+  font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+  font-weight: 330;
+  line-height: 1.75;
+  color: var(--av-smoke);
+  text-align: center;
+}
+
+/* static tier / no-JS: everything reads as a column */
+html:not([data-motion="full"]):not([data-motion="lite"]) .mnf-stage {
+  place-items: start center;
+  padding-top: 6rem;
+  padding-bottom: 6rem;
+}
+
+html:not([data-motion="full"]):not([data-motion="lite"]) .mnf-hook,
+html:not([data-motion="full"]):not([data-motion="lite"]) .mnf-charges,
+html:not([data-motion="full"]):not([data-motion="lite"]) .mnf-climax {
+  grid-area: auto;
+  margin: 2rem 0;
+}
