@@ -1,8 +1,7 @@
 "use client";
 
 import { ReactLenis, useLenis } from "lenis/react";
-import type { LenisRef } from "lenis/react";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 declare global {
@@ -12,19 +11,15 @@ declare global {
 }
 
 /*
- * Lenis smooth scroll wired into GSAP's ticker (autoRaf off) with
- * ScrollTrigger kept in sync. syncTouch stays false so iOS keeps
- * native touch scrolling.
+ * Bridges Lenis into GSAP's ticker. Lives inside <ReactLenis> and uses
+ * the useLenis hook so it wires up whenever the instance is ready,
+ * with no mount-order race: autoRaf is off, so until this runs, wheel
+ * input goes nowhere.
  */
-export default function SmoothScrollProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const lenisRef = useRef<LenisRef>(null);
+function LenisTicker() {
+  const lenis = useLenis();
 
   useEffect(() => {
-    const lenis = lenisRef.current?.lenis;
     if (!lenis) return;
 
     window.__lenis = lenis;
@@ -44,14 +39,27 @@ export default function SmoothScrollProvider({
       lenis.off("scroll", ScrollTrigger.update);
       delete window.__lenis;
     };
-  }, []);
+  }, [lenis]);
 
+  return null;
+}
+
+/*
+ * Lenis smooth scroll wired into GSAP's ticker (autoRaf off) with
+ * ScrollTrigger kept in sync. syncTouch stays false so iOS keeps
+ * native touch scrolling.
+ */
+export default function SmoothScrollProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <ReactLenis
       root
-      ref={lenisRef}
       options={{ autoRaf: false, duration: 1.1, syncTouch: false }}
     >
+      <LenisTicker />
       {children}
     </ReactLenis>
   );
