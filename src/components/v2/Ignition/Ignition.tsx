@@ -82,79 +82,96 @@ export default function Ignition() {
         onComplete: finish,
       });
 
-      /* dial face draws in */
+      /* one slow breath: the whole cluster wakes from black */
       tl.fromTo(
-        q(".ign-arc"),
-        { strokeDashoffset: 600 },
-        { strokeDashoffset: 0, duration: 0.55, ease: "power2.inOut" },
+        q(".ign-center"),
+        { autoAlpha: 0, scale: 0.965 },
+        { autoAlpha: 1, scale: 1, duration: 1.1, ease: "power2.out" },
         0,
       )
         .fromTo(
+          q(".ign-arc"),
+          { strokeDashoffset: 600 },
+          { strokeDashoffset: 0, duration: 1.15, ease: "power2.inOut" },
+          0.15,
+        )
+        .fromTo(
           q(".ign-tick"),
           { opacity: 0 },
-          { opacity: 1, duration: 0.18, stagger: 0.014 },
-          0.12,
+          { opacity: 1, duration: 0.5, stagger: 0.016, ease: "power1.out" },
+          0.45,
         )
         .fromTo(
           q(".ign-num"),
-          { opacity: 0 },
-          { opacity: 1, duration: 0.25, stagger: 0.03 },
-          0.3,
+          { opacity: 0, y: 4 },
+          { opacity: 1, y: 0, duration: 0.6, stagger: 0.05 },
+          0.85,
         )
-        /* warning lamps flare then settle */
+        /* warning lamps glow up together, hold, then dim as one */
         .fromTo(
           q(".ign-lamp"),
           { opacity: 0 },
-          { opacity: 1, duration: 0.12, stagger: 0.06 },
-          0.5,
-        )
-        .to(
-          q(".ign-lamp"),
-          { opacity: 0.18, duration: 0.3, stagger: 0.05 },
+          { opacity: 1, duration: 0.5, stagger: 0.07, ease: "power1.inOut" },
           1.5,
         )
-        /* ignition needle sweep: 0 → redline → settle at idle */
+        /* the sweep: deliberate climb, a breath at the redline */
         .fromTo(
           q(".ign-needle"),
           { rotation: rpmToDeg(0) + 90, transformOrigin: "50% 100%" },
           {
             rotation: rpmToDeg(7600) + 90,
-            duration: 0.55,
-            ease: "power3.in",
+            duration: 1.0,
+            ease: "power2.inOut",
           },
-          0.72,
+          2.15,
         )
         .to(
           q(".ign-glow"),
-          { opacity: 1, duration: 0.2, ease: "power1.in" },
-          "<0.35",
+          { opacity: 1, duration: 0.8, ease: "power1.inOut" },
+          2.45,
         )
+        /* fall back to idle: heavy, damped, no bounce */
         .to(
           q(".ign-needle"),
           {
             rotation: rpmToDeg(900) + 90,
-            duration: 0.9,
-            ease: "elastic.out(1, 0.55)",
+            duration: 1.35,
+            ease: "power3.inOut",
           },
-          1.32,
+          3.35,
         )
-        .to(q(".ign-glow"), { opacity: 0, duration: 0.5 }, 1.45)
-        .to(q(".ign-status"), { opacity: 0, duration: 0.18 }, 1.35)
+        .to(
+          q(".ign-glow"),
+          { opacity: 0, duration: 1.0, ease: "power1.inOut" },
+          3.5,
+        )
+        .to(
+          q(".ign-lamp"),
+          { opacity: 0.18, duration: 0.8, ease: "power1.inOut" },
+          3.5,
+        )
+        .to(q(".ign-status"), { opacity: 0, duration: 0.4 }, 3.55)
         .fromTo(
           q(".ign-status--ready"),
           { opacity: 0 },
-          { opacity: 1, duration: 0.25 },
-          1.6,
+          { opacity: 1, duration: 0.6 },
+          3.95,
         )
-        /* lift */
+        /* the hero starts waking underneath as the curtain begins to move */
+        .call(markDone, [], 4.85)
+        .to(
+          q(".ign-center"),
+          { y: -60, autoAlpha: 0, duration: 0.9, ease: "power2.in" },
+          4.75,
+        )
         .to(
           root.current,
           {
             clipPath: "inset(0 0 100% 0)",
-            duration: 0.8,
-            ease: "power4.inOut",
+            duration: 1.15,
+            ease: "power3.inOut",
           },
-          2.15,
+          4.9,
         );
 
       /* skip affordances */
