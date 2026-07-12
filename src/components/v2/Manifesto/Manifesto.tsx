@@ -81,7 +81,8 @@ export default function Manifesto() {
           "+=0.6",
         )
 
-        /* 3 — climax: title + flatline that becomes a needle */
+        /* 3 — climax: the title arrives with its red line already part
+           of the lockup */
         .from(
           q(".mnf-title-line"),
           {
@@ -96,25 +97,29 @@ export default function Manifesto() {
           q(".mnf-flatline"),
           { scaleX: 0 },
           { scaleX: 1, duration: 0.9, ease: "power2.inOut" },
-          "<+=0.4",
-        )
-        .to(
-          q(".mnf-flatline"),
-          { rotation: -24, duration: 0.5, ease: "power2.out" },
-          "+=0.3",
-        )
-        .to(
-          q(".mnf-flatline"),
-          { rotation: -18, duration: 0.3, ease: "power1.inOut" },
+          "<+=0.25",
         )
 
         /* 4 — resolve */
         .from(
           q(".mnf-resolve"),
           { autoAlpha: 0, y: 30, duration: 0.6, ease: "power2.out" },
-          "+=0.4",
+          "+=0.35",
         )
-        .to({}, { duration: 0.8 }); /* hold before unpin */
+
+        /* 5 — scrolling on: the line retreats and fades away */
+        .to(
+          q(".mnf-flatline"),
+          {
+            scaleX: 0,
+            autoAlpha: 0,
+            transformOrigin: "100% 50%",
+            duration: 0.9,
+            ease: "power2.inOut",
+          },
+          "+=0.7",
+        )
+        .to({}, { duration: 0.5 }); /* hold before unpin */
 
       return () => {
         hook.revert();
